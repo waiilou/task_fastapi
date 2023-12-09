@@ -1,24 +1,11 @@
-import uvicorn
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Response, Path, Query, Body, Header
+from fastapi.responses import HTMLResponse, PlainTextResponse, JSONResponse, FileResponse
+from public.users import users_router
+
 app = FastAPI()
+app.include_router(users_router)
 
 
-@app.get("/")
-async def p_index():
-    return {"FIO": "Моисеев Алексей Евгеньевич"}
-
-
-@app.get("/users",response_class=HTMLResponse)
-async def p_users():
-    output ="<h3> Phone Number:+7923*****94 </h3>"
-    return output
-
-@app.get("/tools",response_class=HTMLResponse)
-async def p_tools():
-    output = "<h2> <center> C# Junior <br> UI/UX Designer <br> 3D Artist </center></h2>"
-    return output
-
-if __name__ == "__main__":
-    uvicorn.run(app = "main:app",host="127.0.0.1",port=500)
-
+@app.get('/', response_class=HTMLResponse)
+def p_index():
+    return "<b> task2 FastAPI </b>"
